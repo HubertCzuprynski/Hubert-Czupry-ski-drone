@@ -24,33 +24,34 @@ class DroneController(Node):
         timer_period = 1
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
-        self.points = [(0.0, 2.0), (0.0, 12.0), (0.0, 7.0), (5.0, 7.0), (5.0, 12.0), (5.0, 2.0), (5.0, 7.0), (0.0, 2.0)] # Punkty do wykonania litery H
+        self.points = [(0.0, 2.0), (0.0, 12.0), (0.0, 7.0), (5.0, 7.0), (5.0, 12.0), (5.0, 2.0), (5.0, 7.0), (0.0, 2.0)] #Punkty do wykonania litery H
 
+    
     def pose_callback(self, data):
         self.gt_pose = data
         print(f"{data}")
 
+    
     def timer_callback(self):
         msg = Twist()
         msg.linear.z = 2.0
-        self.command_pub.publish(msg)
-        
+
         if self.gt_pose is not None:
             x = self.gt_pose.position.x
             y = self.gt_pose.position.y
-            
-        current_point = self.points[self.current_point_index]
-        next_point = self.points[self.next_point_index]
+            current_point = self.points[self.current_point_index]
+            next_point = self.points[self.next_point_index]
 
-        X = abs(x - next_point[0])
-        Y = abs(y - next_point[1])
+            X = abs(x - next_point[0])
+            Y = abs(y - next_point[1])
 
-        if X < 1 and Y < 1:
+            if X < 1 and Y < 1:
                 self.current_point_index = self.next_point_index
                 self.next_point_index = (self.current_point_index + 1) % len(self.points)
-      
+                
+        self.command_pub.publish(msg) #oprócz zmian, tego właśnie brakowało, musiało mi gdzieś uciec
 
-            
+
 def main(args=None):
     rclpy.init(args=args)
 
@@ -61,5 +62,5 @@ def main(args=None):
     node.destroy_node()
     rclpy.shutdown()
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     main()
