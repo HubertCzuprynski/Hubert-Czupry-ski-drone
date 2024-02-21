@@ -31,18 +31,19 @@ class DroneController(Node):
     def timer_callback(self):
         msg = Twist()
         msg.linear.z = 2.0
+        self.command_pub.publish(msg)
 
     #Punkty do wykonania litery H
 points = [(0.0, 2.0), (0.0, 12.0), (0.0, 7.0), (5.0, 7.0), (5.0, 12.0), (5.0, 2.0), (5.0, 7.0), (0.0, 2.0)]
 
+    
+    if True:
+        x = self.gt_pose.position.x
+        y = self.gt_pose.position.y
+        self.x, self.y = points[self.next_point_index]
 
-if True:
-    x = self.gt_pose.position.x
-    y = self.gt_pose.position.y
-    self.x, self.y = points[self.next_point_index]
-
-    X = abs(x - points[next_point_index][0])
-    Y = abs(y - points[next_point_index][1])
+        X = abs(x - points[next_point_index][0])
+        Y = abs(y - points[next_point_index][1])
 
     if X < 1 and Y < 1:
         current_point_index = next_point_index
