@@ -34,7 +34,6 @@ class DroneController(Node):
         self.command_pub.publish(msg)
         
     points = [(0.0, 2.0), (0.0, 12.0), (0.0, 7.0), (5.0, 7.0), (5.0, 12.0), (5.0, 2.0), (5.0, 7.0), (0.0, 2.0)] #Punkty do wykonania litery H
-
     
     if True:
         x = self.gt_pose.position.x
@@ -44,11 +43,9 @@ class DroneController(Node):
         X = abs(x - points[next_point_index][0])
         Y = abs(y - points[next_point_index][1])
 
-    if X < 1 and Y < 1:
-        current_point_index = next_point_index
-        next_point_index = (current_point_index + 1) % len(points)
-
-    self.command_pub.publish(msg)
+        if X < 1 and Y < 1:
+            current_point_index = next_point_index
+            next_point_index = (current_point_index + 1) % len(points)
 
 
 def main(args=None):
