@@ -48,9 +48,6 @@ if True:
         current_point_index = next_point_index
         next_point_index = (current_point_index + 1) % len(points)
         
-    self.x, self.y = points[next_point_index]
-
-
 
 def main(args=None):
     rclpy.init(args=args)
