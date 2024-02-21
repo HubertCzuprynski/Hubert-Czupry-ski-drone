@@ -47,7 +47,9 @@ if True:
     if X < 1 and Y < 1:
         current_point_index = next_point_index
         next_point_index = (current_point_index + 1) % len(points)
-        
+
+    self.command_pub.publish(msg)
+
 
 def main(args=None):
     rclpy.init(args=args)
