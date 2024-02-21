@@ -35,18 +35,22 @@ class DroneController(Node):
         msg.linear.z = 2.0
         self.command_pub.publish(msg)
         
-        x = self.gt_pose.position.x
-        y = self.gt_pose.position.y
-        current_point = self.points[self.current_point_index]
-        next_point = self.points[self.next_point_index]
+        if self.gt_pose is not None:
+            x = self.gt_pose.position.x
+            y = self.gt_pose.position.y
+            current_point = self.points[self.current_point_index]
+            next_point = self.points[self.next_point_index]
 
-        X = abs(x - next_point[0])
-        Y = abs(y - next_point[1])
+            X = abs(x - next_point[0])
+            Y = abs(y - next_point[1])
 
-        if X < 1 and Y < 1:
-            self.current_point_index = self.next_point_index
-            self.next_point_index = (self.current_point_index + 1) % len(self.points)
+            if X < 1 and Y < 1:
+                self.current_point_index = self.next_point_index
+                self.next_point_index = (self.current_point_index + 1) % len(self.points)
+        else:
+            print("Nie ma jeszcze danych o polozeniu")
 
+            
 def main(args=None):
     rclpy.init(args=args)
 
@@ -57,5 +61,5 @@ def main(args=None):
     node.destroy_node()
     rclpy.shutdown()
 
-if __name__ == '__main__':
+if _name_ == '_main_':
     main()
