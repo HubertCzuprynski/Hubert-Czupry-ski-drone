@@ -32,9 +32,8 @@ class DroneController(Node):
         msg = Twist()
         msg.linear.z = 2.0
         self.command_pub.publish(msg)
-
-    #Punkty do wykonania litery H
-points = [(0.0, 2.0), (0.0, 12.0), (0.0, 7.0), (5.0, 7.0), (5.0, 12.0), (5.0, 2.0), (5.0, 7.0), (0.0, 2.0)]
+        
+    points = [(0.0, 2.0), (0.0, 12.0), (0.0, 7.0), (5.0, 7.0), (5.0, 12.0), (5.0, 2.0), (5.0, 7.0), (0.0, 2.0)] #Punkty do wykonania litery H
 
     
     if True:
